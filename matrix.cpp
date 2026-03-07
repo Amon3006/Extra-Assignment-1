@@ -85,14 +85,17 @@ int main(){
 
     int row,col;
 
-    
+    cout<<"Enter number of rows: "<<endl;
     cin>>row;
+    cout<<"Enter number of columns : "<<endl;
     cin>>col;
 
     Matrix m1(row,col);
 
     m1.Accept();
+    cout<<"Original matrix : "<<endl;
     m1.display();
+    cout<<"Transpose of the matrix : "<<endl;
     m1.transpose();
 
 }

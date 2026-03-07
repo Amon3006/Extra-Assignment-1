@@ -1,59 +1,33 @@
 #include<iostream>
+#include<cmath>
 using namespace std;
  
 /*1. Write a C++ program to calculate Simple and Compound interest.*/
 
-class SimpleInt {
-    private:
-    double principal;
-    double rate;
-    int time;
+double calculateSimpleInterest(double principal, double rate, int time) {
+    return (principal * rate * time) / 100;
+}
 
-    public:
-    SimpleInt(){
-        this->principal =0;
-        this->rate=0;
-        this->time=0;
-    }
+double calculateCompoundInterest(double principal, double rate, int time) {
+    return principal * pow((1 + rate / 100), time) - principal;
+}
 
-    SimpleInt(const double principal,const double rate,const int time){
-        this->principal = principal;
-        this->rate = rate;
-        this->time = time;
-    }
-
-    void setPrincipal(double principal){
-        this->principal = principal;
-    }
-
-    void setRate(double rate){
-        this->rate = rate;
-    }
-
-    void setTime(int time){
-        this->time = time;
-    }
-
-    double calculateSimpleInterest(){
-        return (principal * rate * time) / 100.0;
-    }
-};
-
-int main()
-{
+int main() {
     double principal, rate;
     int time;
 
-    cout << "Enter the principal amount: ";
+    cout << "Enter principal amount: ";
     cin >> principal;
-    cout << "Enter the rate of interest: ";
+    cout << "Enter annual interest rate (in %): ";
     cin >> rate;
-    cout << "Enter the time in years: ";
+    cout << "Enter time (in years): ";
     cin >> time;
 
-    SimpleInt si(principal, rate, time);
-    double simpleInterest = si.calculateSimpleInterest();
+    double simpleInterest = calculateSimpleInterest(principal, rate, time);
+    double compoundInterest = calculateCompoundInterest(principal, rate, time);
+
     cout << "Simple Interest: " << simpleInterest << endl;
+    cout << "Compound Interest: " << compoundInterest << endl;
 
     return 0;
 }

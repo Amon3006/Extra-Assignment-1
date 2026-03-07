@@ -1,53 +1,75 @@
 #include<iostream>
 using namespace std;
-/*7. Create an Electricity Charges class which contains the members as units consumed and a method to calculate the electricity bill based on the following criteria:
-- For the first 100 units: Rs. 1.20 per unit
-- For the next 100 units: Rs. 2.00 per unit
-- For units above 200: Rs. 3.00 per unit
-Write a C++ program that accepts the units consumed from the keyboard and displays the total electricity bill.*/
+/*7. An electricity board charges the following rates to domestic users:
+For the first 100 units -. 5.5P per unit
+For next 200 units -. 7.25P per unit
+Beyond 300 units - *. 8.75P per unit
+All users are charged a minimum of ₹. 60.
+If the total amount is more than. 750 then an additional surcharge of 10% is added on the higher slab units.
+Write a C++ program to read the names of users and number of units consumed and print out the charges with names.*/
 
 
 class ElectricityCharges {
     private:
-    int unitsConsumed;
+    string name;
+    int units;
 
     public:
     ElectricityCharges(){
-        this->unitsConsumed =0;
+        this->name = "";
+        this->units = 0;
     }
 
-    ElectricityCharges(const int unitsConsumed){
-        this->unitsConsumed = unitsConsumed;
+    ElectricityCharges(const string name,const double units){
+        this->name = name;
+        this->units = units;
     }
 
-    void setUnitsConsumed(int unitsConsumed){
-        this->unitsConsumed = unitsConsumed;
+    void setName(string name){
+        this->name = name;
     }
 
-    double calculateBill(){
-        double billAmount = 0.0;
+    void setUnits(double units){
+        this->units = units;
+    }
 
-        if (unitsConsumed <= 100) {
-            billAmount = unitsConsumed * 1.20;
-        } else if (unitsConsumed <= 200) {
-            billAmount = (100 * 1.20) + ((unitsConsumed - 100) * 2.00);
+    double calculateCharges(){
+        double charges = 0.0;
+
+        if (units <= 100) {
+            charges = units * 5.5 / 100;
+        } else if (units <= 300) {
+            charges = (100 * 5.5 / 100) + ((units - 100) * 7.25 / 100);
         } else {
-            billAmount = (100 * 1.20) + (100 * 2.00) + ((unitsConsumed - 200) * 3.00);
+            charges = (100 * 5.5 / 100) + (200 * 7.25 / 100) + ((units - 300) * 8.75 / 100);
         }
 
-        return billAmount;
+        if (charges < 60) {
+            charges = 60; // Minimum charge
+        } else if (charges > 750) {
+            charges += charges * 0.10; // Add surcharge
+        }
+
+        return charges;
     }
 };
 
 int main()
 {
-    int units;
-    cout << "Enter the units consumed: ";
+    string name;
+    double units;
+
+    cout << "Enter user's name: ";
+    cin >> name;
+    cout << "Enter number of units consumed: ";
     cin >> units;
 
-    ElectricityCharges bill(units);
-    double totalBill = bill.calculateBill();
-    cout << "Total electricity bill: Rs. " << totalBill << endl;
+    ElectricityCharges user(name, units);
+    double totalCharges = user.calculateCharges();
+
+    cout << "User: " << name << endl;
+    cout << "Units Consumed: " << units << endl;
+    cout << "Total Charges: Rs." << totalCharges << endl;
 
     return 0;
 }

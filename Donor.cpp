@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-/*12. Create a Donor class which contains the members as 
+/*6. Create a Donor class which contains the members as 
 name, age, blood group, and address. Include a method to display
  the donor's information. Write a C++ program to create an object 
  of the Donor class and display the donor's information.*/
