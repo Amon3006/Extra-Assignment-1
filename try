@@ -1,0 +1,76 @@
+
+
+#include<iostream>
+using namespace std;
+#include <cstring>
+float result=0;
+class Units{
+    private:
+    int units;
+    string name;
+    public:
+    Units(){
+        units=0;
+        name="";
+    }
+    Units(int units,string name){
+        this->units=units;
+        this->name=name;
+    }
+    void accept(){
+        cout<<"Enter the unit used"<<endl;
+        cin>>units;
+        cout<<"enter the name"<<endl;
+        cin>>name;
+    }
+    void display(){
+        cout<<"the name is "<<name;
+        cout<<"the units are"<<units;
+    }
+    int getuni(){
+        return units;
+    }
+
+};
+
+void calculate(Units *uni,int size){
+    for(int i=0;i<size;i++){
+        if(uni[i].getuni()<=100 ){
+            result=result+uni[i].getuni()*5.5;
+            if(result<60){
+                result=60;
+            }
+        }
+        if(uni[i].getuni()<=200 && uni[i].getuni()>=100){
+            int un=uni[i].getuni();
+            result=result+100*5.5+(200-un)*7.25;;
+        }
+        if(uni[i].getuni()<=300 && uni[i].getuni()>=200){
+            int un=uni[i].getuni();
+            result=result+100*5.5+200*7.25+(300-un)*8.75;
+        }
+        if(result>750){
+            result=result+result*0.10;
+        }
+    }
+
+
+}
+
+
+
+int main(){
+    
+    int x;
+    cout<<"Enter the number of objects ";
+    cin>>x;
+    Units *uni=new Units[x];
+    for(int i=0;i<x;i++){
+        cout<<"For no : "<<i+1<<endl;
+        uni[i].accept();      
+    }
+    calculate(uni,x);
+    cout<<result;
+    
+
+}
