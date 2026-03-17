@@ -1,0 +1,201 @@
+1) Create a procedure P1 that inserts numbers from 1 to 10 into table t1 which has only  one column named a of int type. Use while loop only.
+
+Create table t1 (a int);
+DELIMITER //
+
+Create procedure p2 ()
+BEGIN
+	DECLARE counter INT DEFAULT 1;
+
+
+WHILE counter <= 10
+DO
+
+	Insert into t1 values (counter);
+	SET counter = counter+1;
+END WHILE;
+
+END //
+DELIMITER ;
+
+2) Create a procedure P2 that inserts only even numbers between 1 and 50 into table t2  which has only one column named b of int type. Use repeat loop only.
+
+Create table t2(b int)
+
+
+
+DELIMITER //
+create procedure p2()
+BEGIN
+ 	Declare counter Int DEFAULT 0;
+
+REPEAT
+	SET counter =counter +2;
+	Insert into t2 values(counter);
+	UNTIL counter>50
+
+END REPEAT ;
+END //
+DELIMITER ;
+	
+
+
+
+
+
+
+3) Create a procedure P3 that calculates sum of numbers from 1 to 100 and inserts the  final sum as a single row in table t3 which has only one column named c of int type.  Use of while loop only.
+
+create table t3(c int);
+
+DELIMITER //
+CREATE PROCEDURE P3()
+BEGIN 
+
+DECLARE COUNT INT DEFAULT 1;
+DECLARE SUM INT DEFAULT 0;
+
+WHILE COUNT < 100
+DO
+
+SET SUM = SUM + COUNT;
+SET COUNT  = COUNT +1;
+END WHILE;
+INSERT INTO T3 VALUES (SUM);
+END //
+DELIMITER ;
+
+
+
+
+
+
+
+
+4) Create a procedure P4 that inserts multiplication table of 5 (5 × 1 to 5 × 10) into table  t4 which has only one column named d of int type. Use basic loop only.
+CREATE TABLE T4(d int);
+DELIMITER //
+CREATE PROCEDURE P4()
+BEGIN
+DECLARE COUNTER INT DEFAULT 1;
+DECLARE Tab INT DEFAULT 1;
+
+basic_loop:Loop
+	Set Tab=Counter*5;
+ 	Set Counter =counter+1;
+	insert into t4 values(Tab);
+	IF counter > 10 THEN 
+		LEAVE basic_loop;
+	END IF;
+end Loop basic_loop;
+End//
+ DELIMITER ;
+
+
+
+
+
+
+5) Create a procedure P5 that inserts numbers from 20 down to 1 into table t5 which  has only one column named e of int type. Use repeat loop only.
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE P5()
+BEGIN 
+
+DECLARE count INT DEFAULT 20 ;
+
+REPEAT 
+	SET count = count -1;
+	INSERT INTO T5 VALUES (count);
+	UNTIL count < 1
+
+END REPEAT ;
+END $$
+
+DELIMITER ;
+
+
+
+6) Create a procedure P6 that accepts marks as an input parameter and determines the  student’s result. If the marks are greater than or equal to 80, the procedure should  display the message 'Distinction'; if the marks are greater than or equal to 60 but less  than 80, it should display 'First Class'; if the marks are greater than or equal to 40 but  less than 60, it should display 'Pass'; otherwise, it should display 'Fail'.
+CREATE TABLE T6(MARKS INT);
+
+
+DELIMITER $$  
+create procedure p6(in MARKS int)
+Begin
+ 
+	IF MARKS>=80  THEN 
+		select ''Distinction'';
+	
+	IF (MARKS>=60 AND MARKS<80 )THEN
+		SELECT ''FIRST CLASS'';
+	IF (MARKS>=40 AND MARKS<60) THEN 
+		SELECT ''PASS'';
+	ELSE 
+		SELECT ''FAIL'';
+
+
+END IF;
+End $$
+Delimiter ;
+
+
+
+
+
+
+
+
+7) Create a procedure P7 that inserts squares of numbers from 1 to 15 into a table t6  which has only one column named g of int type. Use basic loop only.
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE P7()
+BEGIN
+
+DECLARE CON INT DEFAULT 1;
+DECLARE NUM INT DEFAULT 1;
+
+BASIC_LOOP: LOOP
+	SET NUM = CON ; 
+	SET NUM = NUM*NUM ;
+	INSERT INTO T7 values(NUM);
+	SET CON = CON+1;
+	IF CON>15 THEN 
+		LEAVE  BASIC_LOOP;
+	END IF;
+	END LOOP BASIC_LOOP;
+END //
+DELIMITER ;
+
+
+
+
+
+
+8) Create a procedure P8 that displays numbers starting from 1. Stop loop when  number becomes divisible by 7. Display numbers until that point only. Use basic loop
+
+DELIMITER //
+
+Create procedure p8()
+BEGIN
+
+Declare Count int Default 1;
+
+
+Basic_loop:Loop
+
+	insert into t8 value(count);
+	set Count = count +1;
+	IF COUNT %7 =0 THEN 
+		LEAVE Basic_loop;
+	END IF;
+	END loop basic_loop;
+END//
+DELIMITER ;

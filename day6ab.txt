@@ -1,0 +1,268 @@
+
+___________________________________________________________________________________
+
+
+Create table t1 (a int);
+DELIMITER //
+
+Create procedure p3 ()
+BEGIN
+	DECLARE counter INT DEFAULT 1;
+
+
+WHILE counter <= 10
+DO
+
+	Insert into t1 values (counter);
+	SET counter = counter+1;
+END WHILE;
+
+END //
+DELIMITER ;
+
+
+___________________________________________________________________________________
+
+Create table t2(b int)
+
+
+
+DELIMITER //
+create procedure p2()
+BEGIN
+ 	Declare counter Int DEFAULT 0;
+
+REPEAT 
+	SET counter =counter +2;
+	Insert into t2 values(counter);
+	UNTIL counter>50
+
+END REPEAT ;
+END //
+DELIMITER ;
+
+
+
+
+
+
+
+
+create table t3(c int);
+
+DELIMITER //
+CREATE PROCEDURE P3()
+BEGIN 
+
+DECLARE COUNT INT DEFAULT 1;
+DECLARE SUM INT DEFAULT 0;
+
+WHILE COUNT < 100
+DO
+
+SET SUM = SUM + COUNT;
+SET COUNT  = COUNT +1;
+END WHILE;
+INSERT INTO T3 VALUES (SUM);
+END //
+DELIMITER ;
+
+
+___________________________________________________________________________________
+
+CREATE TABLE T4(d int);
+DELIMITER //
+CREATE PROCEDURE P4()
+BEGIN
+DECLARE COUNTER INT DEFAULT 1;
+DECLARE Tab INT DEFAULT 1;
+
+basic_loop:Loop
+	Set Tab=Counter*5;
+ 	Set Counter =counter+1;
+	insert into t4 values(Tab);
+	IF counter > 10 THEN 
+		LEAVE basic_loop;
+	END IF;
+end Loop basic_loop;
+End//
+ DELIMITER ;
+
+
+
+
+
+
+
+
+
+5) Create a procedure P5 that inserts numbers from 20 down to 1 into table t5 which  has only one column named e of int type. Use repeat loop only. 
+
+	
+DELIMITER $$
+
+CREATE PROCEDURE P5()
+BEGIN 
+
+DECLARE count INT DEFAULT 20 ;
+
+REPEAT 
+	SET count = count -1;
+	INSERT INTO T5 VALUES (count);
+	UNTIL count < 1
+
+END REPEAT ;
+END $$
+
+DELIMITER ;
+
+
+___________________________________________________________________________________
+
+
+CREATE TABLE T6(MARKS INT);
+
+
+DELIMITER $$  
+create procedure p6(in MARKS int)
+Begin
+ 
+	IF MARKS>=80  THEN 
+		select ''Distinction'';
+	
+	IF (MARKS>=60 AND MARKS<80 )THEN
+		SELECT ''FIRST CLASS'';
+	IF (MARKS>=40 AND MARKS<60) THEN 
+		SELECT ''PASS'';
+	ELSE 
+		SELECT ''FAIL'';
+
+
+END IF;
+End $$
+Delimiter ;
+
+
+
+CREATE TABLE T7(G INT)
+
+
+DELIMITER //
+CREATE PROCEDURE P7()
+BEGIN
+
+DECLARE CON INT DEFAULT 1;
+DECLARE NUM INT DEFAULT 1;
+
+BASIC_LOOP: LOOP
+	SET NUM = CON ; 
+	SET NUM = NUM*NUM ;
+	INSERT INTO T7 values(NUM);
+	SET CON = CON+1;
+	IF CON>15 THEN 
+		LEAVE  BASIC_LOOP;
+	END IF;
+	END LOOP BASIC_LOOP;
+END //
+DELIMITER ;
+
+
+
+
+___________________________________________________________________________________
+Create table t8(t int);
+
+DELIMITER //
+
+Create procedure p8()
+BEGIN
+
+Declare Count int Default 1;
+
+
+Basic_loop:Loop
+
+	insert into t8 value(count);
+	set Count = count +1;
+	IF COUNT %7 =0 THEN 
+		LEAVE Basic_loop;
+	END IF;
+	END loop basic_loop;
+END//
+DELIMITER ;
+
+
+___________________________________________________________________________________
+
+Delimiter //
+create procedure p10 (in  empno int)
+
+
+Begin
+Select * from employees where employee_id=empno;
+end //
+ Delimiter ;
+___________________________________________________________________________________
+
+Delimiter //
+create procedure p11 (in  dept varchar(30))
+
+
+Begin
+
+SELECT count(1), avg( salary ), min( salary ), max(salary), department from employees where department = dept group by department;
+
+
+end //
+ Delimiter ;
+
+___________________________________________________________________________________
+
+CREATE TABLE emp_sp as SELECT * FROM emp;
+
+
+Delimiter //
+create procedure p12 (in empnum int, in per float)
+
+Begin
+
+select sal  as old_salary from emp_sp where empno = empnum;
+
+UPDATE emp_sp SET sal = sal +  sal*per/100 where empno = empnum ;
+ 
+select sal  as new_salary from emp_sp where empno = empnum;
+
+
+end //
+ Delimiter ;
+___________________________________________________________________________________
+
+
+
+
+
+
+Delimiter //
+create procedure p13(in empnum int, in name varchar(15), in jb varchar(9), in mg int, in hire date, in sl int,in com int , in deptnum int );
+
+Begin
+
+DECLARE err_code INT DEFAULT 0;
+ DECLARE err_msg TEXT;
+
+
+Declare Continue Handler For SqlException
+Begin
+	
+	err_code = MYSQL_ERRNO,
+	err_msg = Message_text;
+
+End;
+	 
+insert into emp_sp values(empnum , name , jb , mg, hire , sl , com , deptnum);
+If err_code = 1062 then
+select 'The value of column a is getting duplicated' as 'Error Description';
+End If;
+End //
+
+Delimiter ;
